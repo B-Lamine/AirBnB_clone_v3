@@ -13,18 +13,18 @@ from models.user import User
 classes = [Amenity, City, Review, State, Place, User]
 
 
-@app_views.route('/status')
+@app_views.route('/status', methods=['GET'])
 def status():
     """ Return status.
     """
-    return jsonify({"status": "OK"}, mimetype='application/json')
+    return jsonify({"status": "OK"})
 
 
-@app_views.route('/status')
+@app_views.route('/stats', methods=['GET'])
 def stats():
     """ Stats for stored objects.
     """
     stats = {}
     for cls in classes:
         stats.append({cls.__name__: storage.count(cls)})
-    return stats
+    return jsonify(stats)
