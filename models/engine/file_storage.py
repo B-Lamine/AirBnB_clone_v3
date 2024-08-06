@@ -33,17 +33,14 @@ class FileStorage:
                 if id in k:
                     return v
             return None
+        return None
 
     def count(self, cls=None):
         """ Count number of objects in storage.
         """
         if cls is None:
             return len(list(self.__objects.keys()))
-        count = 0
-        for k, v in self.__objects.items():
-            if v.__class__ is cls:
-                count += 1
-        return count
+        return len(list(self.all(cls).keys()))
 
     def all(self, cls=None):
         """returns the dictionary __objects"""
