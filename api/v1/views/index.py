@@ -3,6 +3,7 @@
 """
 from api.v1.views import app_views
 from flask import jsonify
+from models import storage
 from models.amenity import Amenity
 from models.city import City
 from models.review import Review
@@ -26,5 +27,5 @@ def stats():
     """
     stats = {}
     for cls in classes:
-        stats.append({cls.__name__: storage.count(cls)})
+        stats.update({cls.__name__: storage.count(cls)})
     return jsonify(stats)
