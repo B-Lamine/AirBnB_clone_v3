@@ -46,7 +46,7 @@ class DBStorage:
         if cls in classes.values():
             # obj.key's format: class.id but this checks for any subset.
             for k, v in self.all(cls).items():
-                if id in k:
+                if id == k.split('.')[-1]:
                     return v
             return None
 
