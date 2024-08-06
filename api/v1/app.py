@@ -2,7 +2,7 @@
 """ HBnB API.
 """
 from api.v1.views import app_views
-from flask import Flask
+from flask import Flask, jsonify, make_response
 from models import storage
 import os
 
@@ -16,6 +16,13 @@ def teardown(exception):
     """ Close session if DB storage, load objects if file storage.
     """
     storage.close()
+
+
+@app.errorhandler(404)
+def not_found(error):
+    """ JSON response for 404 errors.
+    """
+    return make_response(jsonify({"error": "Not found"}), 404)
 
 
 if __name__ == '__main__':
