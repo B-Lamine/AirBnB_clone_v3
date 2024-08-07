@@ -62,7 +62,7 @@ def create_place(city_id):
     city = storage.get(City, city_id)
     if city is None:
         abort(404)
-    user = storage.get(User, user_id)
+    user = storage.get(User, request.json.get('user_id'))
     if user is None:
         abort(404)
     kwargs = {'name': request.json.get('name'),
