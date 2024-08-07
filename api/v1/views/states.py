@@ -15,7 +15,7 @@ def states():
     objs_dict = storage.all(State)
     for obj in objs_dict.values():
         response.append(obj.to_dict())
-    return jsonify(response)
+    return jsonify(response), 200
 
 
 @app_views.route('/states/<state_id>', strict_slashes=False, methods=['GET'])
@@ -25,7 +25,7 @@ def get_state(state_id):
     state = storage.get(State, state_id)
     if state is None:
         abort(404)
-    return jsonify(state.to_dict())
+    return jsonify(state.to_dict()), 200
 
 
 @app_views.route('/states/<state_id>', strict_slashes=False,
