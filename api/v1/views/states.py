@@ -49,8 +49,8 @@ def create_state():
         return make_response(jsonify({"error": "Not a JSON"}), 400)
     if 'name' not in request.json:
         return make_response(jsonify({"error": "Missing name"}), 400)
-    state = State(request.json.get('name'))
-    state.new(state)
+    state = State(name=request.json.get('name'))
+    storage.new(state)
     storage.save()
     return jsonify(state.to_dict()), 201
 
@@ -66,6 +66,6 @@ def update_state(state_id):
         return make_response(jsonify({"error": "Not a JSON"}), 400)
     for key, value in request.json.items():
         if key not in ['id', 'created_at', 'updated_at']:
-            state[key] = value
+            setattr(state, key, value)
     storage.save()
     return jsonify(state.to_dict()), 200
